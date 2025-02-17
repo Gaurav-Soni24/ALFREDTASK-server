@@ -9,34 +9,14 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = [
-    "http://localhost:5173/",  // Local Development
-    "https://vishalalfredtask.vercel.app" // Production Frontend on Vercel
-];
-
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                console.error("❌ CORS Blocked Origin:", origin);
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
-        credentials: true, // Allow cookies & authentication headers
-    })
-);
-
-
+// Allow all origins
+app.use(cors({ origin: '*', credentials: true }));
 
 // Middleware
 app.use(express.json());
 
 // Environment Variables
 const { MONGODB_URI, PORT = 3000 } = process.env;
-
-console.log(MONGODB_URI);
 
 if (!MONGODB_URI) {
     console.error("MongoDB URI is missing! Check your .env file.");
@@ -52,7 +32,6 @@ mongoose
         process.exit(1);
     });
 
-// MongoDB Connection Events
 mongoose.connection.on("connected", () => console.log("MongoDB is connected"));
 mongoose.connection.on("error", (err) => console.error("MongoDB connection error:", err.message));
 mongoose.connection.on("disconnected", () => console.warn("MongoDB is disconnected"));
