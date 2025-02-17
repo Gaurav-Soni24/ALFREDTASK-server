@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-    "http://localhost:5173",  // Local Development
+    "http://localhost:5173/",  // Local Development
     "https://vishalalfredtask.vercel.app" // Production Frontend on Vercel
 ];
 
