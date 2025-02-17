@@ -38,8 +38,8 @@ mongoose.connection.on("disconnected", () => console.warn("MongoDB is disconnect
 
 // Routes
 app.get("/", (req, res) => res.send("Welcome to the Alfred Task API!"));
-app.use("/api/auth", authRoutes);
-app.use("/api/flashcards", flashcardRoutes);
+app.use("/auth", authRoutes);
+app.use("/flashcards", flashcardRoutes);
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
